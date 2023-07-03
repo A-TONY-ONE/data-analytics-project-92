@@ -59,16 +59,17 @@ LEFT JOIN products p ON
 GROUP BY
      s.sale_date,2, 1
 order by EXTRACT(ISODOW FROM s.sale_date);
+
 --6.1 Количество покупателей в разных возрастных группах: 16-25, 26-40 и 40+
-SELECT '16-25' as age_category, COUNT(age) as count 
+SELECT '16-25' as age_category, COUNT(distinct (customer_id)) as count 
 FROM customers 
 WHERE age BETWEEN 16 AND 25 
 UNION ALL 
-SELECT '26-40' as age_category, COUNT(age) as count 
+SELECT '26-40' as age_category, COUNT(distinct (customer_id)) as count 
 FROM customers 
 WHERE age BETWEEN 26 AND 40 
 UNION ALL 
-SELECT '40+' as age_category, COUNT(age) as count 
+SELECT '40+' as age_category, COUNT(distinct (customer_id)) as count 
 FROM customers 
 WHERE age > 40;
 
