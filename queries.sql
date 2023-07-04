@@ -1,7 +1,6 @@
 --4.1 запрос, который считает общее количество покупателей
 select count(customer_id) as customers_count
-from 
-customers
+from customers;
 
   
 --5.1 Отчет о десятке лучших продавцов
