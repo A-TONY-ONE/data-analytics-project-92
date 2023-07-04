@@ -1,4 +1,4 @@
---4.1 запрос, который считает общее количество покупателей
+--4.1 customers_count.csv запрос, который считает общее количество покупателей
 select count(customer_id) as customers_count
 from customers;
 
