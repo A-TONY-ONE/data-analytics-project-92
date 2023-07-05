@@ -20,15 +20,14 @@ order by
     income desc nulls last
 limit 10;
 
---5.2: Информация о продавцах, чья средняя выручка за сделку меньше средней выручки за сделку по всем продавцам.
-
+--5.2 lowest_average_income.csv  Информация о продавцах, чья средняя выручка за сделку меньше средней выручки за сделку по всем продавцам.
 SELECT
     e.first_name || ' ' || e.last_name AS name,
     ROUND(AVG(s.quantity * p.price)) AS average_income
 FROM
-    employees e
-LEFT JOIN sales s ON
-    e.employee_id = s.sales_person_id
+    sales s 
+LEFT JOIN employees e ON
+    s.sales_person_id=e.employee_id
 LEFT JOIN products p ON
     p.product_id = s.product_id
 GROUP BY
@@ -36,7 +35,7 @@ GROUP BY
 HAVING
     ROUND(AVG(s.quantity * p.price)) < (SELECT AVG(p2.price * s2.quantity) FROM sales s2 LEFT JOIN products p2 ON
     p2.product_id = s2.product_id)
-order by average_income desc
+order by average_income ASC
 ;
 
 /*5.3 Третий отчет содержит информацию о выручке по дням недели. Каждая запись содержит имя 
