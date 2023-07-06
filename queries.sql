@@ -7,7 +7,7 @@ from customers;
 select
     first_name || ' ' || last_name as name,
     count(s.sales_id) as operations,
-    ROUND(sum(s.quantity * p.price)) as income
+    ROUND(sum(s.quantity * p.price),4) as income
 from
     employees e
 left join sales s on
