@@ -35,7 +35,7 @@ GROUP BY
 HAVING
     ROUND(AVG(s.quantity * p.price)) < (SELECT AVG(p2.price * s2.quantity) FROM sales s2 LEFT JOIN products p2 ON
     p2.product_id = s2.product_id)
-order by average_income ASC
+order by average_income desc
 ;
 
 /*5.3 day_of_the_week_income.csv Третий отчет содержит информацию о выручке по дням недели. Каждая запись содержит имя 
