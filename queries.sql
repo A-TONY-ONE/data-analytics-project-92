@@ -55,8 +55,9 @@ LEFT JOIN sales s ON
 LEFT JOIN products p ON
     p.product_id = s.product_id
 GROUP BY
-     s.sale_date,2, 1
-order by EXTRACT(ISODOW FROM s.sale_date);
+     2, 1, EXTRACT(ISODOW FROM s.sale_date)
+order by EXTRACT(ISODOW FROM s.sale_date) 
+;
 
 --6.1 age_groups.csv Количество покупателей в разных возрастных группах: 16-25, 26-40 и 40+
 SELECT '16-25' as age_category, COUNT(distinct (customer_id)) as count 
