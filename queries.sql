@@ -46,7 +46,7 @@ weekday — название дня недели на английском яз�
 income — суммарная выручка продавца в определенный день недели, округленная до целого числа*/
 SELECT
     CONCAT(first_name, ' ', last_name) AS name,
-    TO_CHAR(s.sale_date, 'Day') AS weekday,
+    lower( TO_CHAR(s.sale_date, 'Day')) AS weekday,
     ROUND(SUM(s.quantity * p.price), 0) AS income
 FROM
     employees e
