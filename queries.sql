@@ -105,4 +105,4 @@ LEFT JOIN employees e ON
 LEFT JOIN customers c on
     s.customer_id = c.customer_id 
 WHERE p.price = 0
-ORDER by c.customer_id ASC;
+ORDER by c.customer_id ASC,s.sale_date asc;
