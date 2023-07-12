@@ -45,20 +45,22 @@ name — имя и фамилия продавца
 weekday — название дня недели на английском языке
 income — суммарная выручка продавца в определенный день недели, округленная до целого числа*/
 SELECT
-    CONCAT(first_name, ' ', last_name) AS name,
-    TO_CHAR(s.sale_date, 'Day') AS weekday,
-    ROUND(SUM(s.quantity * p.price), 0) AS income
+	CONCAT(first_name, ' ', last_name) AS name,
+	TO_CHAR(s.sale_date, 'day') AS weekday,
+	ROUND(SUM(s.quantity * p.price), 0) AS income
 FROM
-    employees e
+	employees e
 LEFT JOIN sales s ON
-    e.employee_id = s.sales_person_id
+	e.employee_id = s.sales_person_id
 LEFT JOIN products p ON
-    p.product_id = s.product_id
+	p.product_id = s.product_id
 GROUP BY
-     2, 1, EXTRACT(ISODOW FROM s.sale_date)
-order by EXTRACT(ISODOW FROM s.sale_date) 
-;
-
+	2,
+	1,
+	TO_CHAR(sale_date, 'ID')
+ORDER BY
+	TO_CHAR(sale_date, 'ID')
+	;
 --6.1 age_groups.csv Количество покупателей в разных возрастных группах: 16-25, 26-40 и 40+
 
 WITH age_counts AS (
