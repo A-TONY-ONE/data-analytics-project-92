@@ -60,17 +60,23 @@ order by EXTRACT(ISODOW FROM s.sale_date)
 ;
 
 --6.1 age_groups.csv Количество покупателей в разных возрастных группах: 16-25, 26-40 и 40+
-SELECT '16-25' as age_category, COUNT(distinct (customer_id)) as count 
-FROM customers 
-WHERE age BETWEEN 16 AND 25 
-UNION ALL 
-SELECT '26-40' as age_category, COUNT(distinct (customer_id)) as count 
-FROM customers 
-WHERE age BETWEEN 26 AND 40 
-UNION ALL 
-SELECT '40+' as age_category, COUNT(distinct (customer_id)) as count 
-FROM customers 
-WHERE age > 40;
+
+WITH age_counts AS (
+  SELECT
+    CASE
+      WHEN age BETWEEN 16 AND 25 THEN '16-25'
+      WHEN age BETWEEN 26 AND 40 THEN '26-40'
+      ELSE '40+'
+    END AS age_category,
+    COUNT(customer_id) count
+  FROM customers
+  GROUP BY age_category
+)
+SELECT
+  age_category,
+  count
+FROM age_counts
+ORDER BY age_counts ASC ;
 
 /*6.2 customers_by_month.csv  Во втором отчете предоставьте данные по количеству уникальных покупателей и выручке, которую они принесли. Сгруппируйте данные по дате, которая представлена в числовом виде ГОД-МЕСЯЦ. Итоговая таблица должна быть отсортирована по дате по возрастанию и содержать следующие поля:
 date - дата в указанном формате
